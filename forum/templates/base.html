@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+{% import '_narbar.html' as narbar %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
+{% endblock %}
+
+
+
+{%- block styles %}
+<!-- Bootstrap --> 
+{{super()}}
+<link href="{{url_for('static',filename='css/narbar.css')}}" rel="stylesheet" type="text/css">
+{%- endblock styles %}
+
+
+{% block navbar %}
+{{narbar}}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment()}}
+<script src="{{url_for('static',filename='js/narbar.js')}}"></script>
+{% endblock %}
+
